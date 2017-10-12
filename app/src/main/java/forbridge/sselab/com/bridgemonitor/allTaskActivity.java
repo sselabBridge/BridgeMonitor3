@@ -7,9 +7,7 @@ package forbridge.sselab.com.bridgemonitor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -19,8 +17,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
+
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentAllTaskDailyCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentAllTaskOftenCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentAllTaskPeriodcCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentAllTaskSpecialCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentAllTasks;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentHasDoneTasks;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentHasDoneTasksDailyCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentHasDoneTasksOftenCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentHasDoneTasksPeriodcCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentHasDoneTasksSpecialCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentSettings;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentUnDoneTasks;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentUnDoneTasksDailyCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentUnDoneTasksOftenCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentUnDoneTasksPeriodcCheck;
+import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentUnDoneTasksSpecialCheck;
 
 public class allTaskActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

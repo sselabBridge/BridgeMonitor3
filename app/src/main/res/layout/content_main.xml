@@ -8,11 +8,10 @@
     tools:context="forbridge.sselab.com.bridgemonitor.allTaskActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:id="@+id/mainText"
+    <FrameLayout
+        android:id="@+id/fragmentForshow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
