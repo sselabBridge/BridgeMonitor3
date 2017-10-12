@@ -139,7 +139,6 @@ public class allTaskActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -153,15 +152,12 @@ public class allTaskActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
     //侧滑按钮监听事件实现
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -179,14 +175,11 @@ public class allTaskActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     public void DailyCheck(){
         switch (tag_for_show_kinds){
             //全部任务日常巡检
@@ -271,9 +264,7 @@ public class allTaskActivity extends AppCompatActivity
                 MfragmentTransaction3.commit();
                 break;
         }
-
     }
-
     public void PeriodicCheck(){
         switch (tag_for_show_kinds){
             //全部任务定期检查
@@ -288,7 +279,6 @@ public class allTaskActivity extends AppCompatActivity
                 }
                 MfragmentTransaction1.commit();
                 break;
-
             //未完成任务定期检查
             case 2:
                 FragmentManager fm_undonetasks_period = getSupportFragmentManager();
@@ -301,7 +291,6 @@ public class allTaskActivity extends AppCompatActivity
                 }
                 MfragmentTransaction2.commit();
                 break;
-
             //已完成任务定期检查
             case 3:
                 FragmentManager fm_hasdonetasks_period = getSupportFragmentManager();
@@ -361,7 +350,5 @@ public class allTaskActivity extends AppCompatActivity
         }
 
     }
-
-
 }
 
