@@ -18,6 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+
 import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentAllTaskDailyCheck;
 import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentAllTaskOftenCheck;
 import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentAllTaskPeriodcCheck;
@@ -36,100 +39,43 @@ import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentUnDoneTasksPeriodc
 import forbridge.sselab.com.bridgemonitor.fragmetshow.fragmentUnDoneTasksSpecialCheck;
 
 public class allTaskActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener ,BottomNavigationBar.OnTabSelectedListener {
+       //侧滑栏中切换界面的标志
+        private int tag_for_show_kinds = 1;
+        private BottomNavigationBar bottomNavigationBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alltasks);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        //底部按钮监听事件
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.mainNavigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+         bottomNavigationBar= (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        //设置底部导航栏隐藏功能
+        bottomNavigationBar.isAutoHideEnabled();
+        bottomNavigationBar.setAutoHideEnabled(true);
+        //设置底部导航栏的模式
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+        //设置背景颜色
+        bottomNavigationBar.setBarBackgroundColor(R.color.colorPrimaryDark);
+        //设置底部导航菜单栏中的元素
+        bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_format_all_tasks_24dp,"全部任务"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_assignment_nodone_tasks_24dp,"未完成任务"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_assignment_hasdone_tasks_24dp,"已完成任务"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_settings_applications_black_24dp,"设置"))
+                .setFirstSelectedPosition(0)
+                .initialise();
+        //底部菜单栏中的监听器
+        bottomNavigationBar.setTabSelectedListener(this);
+        //侧滑的动画效果
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //侧滑栏的监听部分
         navigationView.setNavigationItemSelectedListener(this);
     }
-
-    private int tag_for_show_kinds = 1;
-
-    //底部按钮监听事件实现
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.all_tasks:
-                    //显示fragment，利用类fragmentAllTasks
-                    //类fragmentAllTasks中显示页面detail_content_alltask
-                    tag_for_show_kinds = 1;
-                    FragmentManager fm_alltasks = getSupportFragmentManager();
-                    FragmentTransaction MfragmentTransaction1 = fm_alltasks.beginTransaction();
-                    fragmentAllTasks fat = new fragmentAllTasks();
-                    if(fm_alltasks.findFragmentById(R.id.fragmentForshow)==null){
-                        MfragmentTransaction1.add(R.id.fragmentForshow,fat);
-                    }else {
-                        MfragmentTransaction1.replace(R.id.fragmentForshow,fat);
-                    }
-                    MfragmentTransaction1.commit();
-                    return true;
-                case R.id.nodone_tasks:
-                    //显示fragment，利用类fragmentUnDoneTasks
-                    //类fragmentUnDoneTasks中显示页面detail_content_undonetasks
-                    tag_for_show_kinds = 2;
-                    FragmentManager fm_nodonetasks = getSupportFragmentManager();
-                    FragmentTransaction MfragmentTransaction2 = fm_nodonetasks.beginTransaction();
-                    fragmentUnDoneTasks fudt = new fragmentUnDoneTasks();
-                    if(fm_nodonetasks.findFragmentById(R.id.fragmentForshow)==null){
-                        MfragmentTransaction2.add(R.id.fragmentForshow,fudt);
-                    }else {
-                        MfragmentTransaction2.replace(R.id.fragmentForshow,fudt);
-                    }
-                    MfragmentTransaction2.commit();
-                    return true;
-                case R.id.hasdone_tasks:
-                    //显示fragment，利用类fragmentHasDoneTasks
-                    //类fragmentHasDoneTasks中显示页面detail_content_hasdonetasks
-                    tag_for_show_kinds = 3;
-                    FragmentManager fm_hasdonetasks = getSupportFragmentManager();
-                    FragmentTransaction MfragmentTransaction3 = fm_hasdonetasks.beginTransaction();
-                    fragmentHasDoneTasks fhdt = new fragmentHasDoneTasks();
-                    if(fm_hasdonetasks.findFragmentById(R.id.fragmentForshow)==null){
-                        MfragmentTransaction3.add(R.id.fragmentForshow,fhdt);
-                    }else {
-                        MfragmentTransaction3.replace(R.id.fragmentForshow,fhdt);
-                    }
-                    MfragmentTransaction3.commit();
-                    return true;
-                case R.id.setting:
-                    //显示fragment，利用类fragmentSettings
-                    //类fragmentSettings中显示页面detail_content_settings
-                    FragmentManager fm_settings = getSupportFragmentManager();
-                    FragmentTransaction MfragmentTransaction4 = fm_settings.beginTransaction();
-                    fragmentSettings fsetting = new fragmentSettings();
-                    if(fm_settings.findFragmentById(R.id.fragmentForshow)==null){
-                        MfragmentTransaction4.add(R.id.fragmentForshow,fsetting);
-                    }else {
-                        MfragmentTransaction4.replace(R.id.fragmentForshow,fsetting);
-                    }
-                    MfragmentTransaction4.commit();
-                    return true;
-            }
-            return false;
-        }
-
-    };
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -145,7 +91,6 @@ public class allTaskActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -224,6 +169,7 @@ public class allTaskActivity extends AppCompatActivity
     }
 
     public void OftenCheck(){
+
         switch (tag_for_show_kinds){
             //全部任务经常检查
             case 1:
@@ -348,6 +294,74 @@ public class allTaskActivity extends AppCompatActivity
                 MfragmentTransaction3.commit();
                 break;
         }
+    }
+//底部导航栏监听部分
+    @Override
+    public void onTabSelected(int position) {
+        switch (position)
+        {
+            case 0:
+                //显示fragment，利用类fragmentAllTasks
+                //类fragmentAllTasks中显示页面detail_content_alltask
+                tag_for_show_kinds = 1;
+                FragmentManager fm_alltasks = getSupportFragmentManager();
+                FragmentTransaction MfragmentTransaction1 = fm_alltasks.beginTransaction();
+                fragmentAllTasks fat = new fragmentAllTasks();
+                if(fm_alltasks.findFragmentById(R.id.fragmentForshow)==null){
+                    MfragmentTransaction1.add(R.id.fragmentForshow,fat);
+                }else {
+                    MfragmentTransaction1.replace(R.id.fragmentForshow,fat);
+                }
+                MfragmentTransaction1.commit();
+                break;
+            case 1:
+                //显示fragment，利用类fragmentUnDoneTasks
+                //类fragmentUnDoneTasks中显示页面detail_content_undonetasks
+                tag_for_show_kinds = 2;
+                FragmentManager fm_nodonetasks = getSupportFragmentManager();
+                FragmentTransaction MfragmentTransaction2 = fm_nodonetasks.beginTransaction();
+                fragmentUnDoneTasks fudt = new fragmentUnDoneTasks();
+                if(fm_nodonetasks.findFragmentById(R.id.fragmentForshow)==null){
+                    MfragmentTransaction2.add(R.id.fragmentForshow,fudt);
+                }else {
+                    MfragmentTransaction2.replace(R.id.fragmentForshow,fudt);
+                }
+                MfragmentTransaction2.commit();
+                break;
+            case 2:
+                //显示fragment，利用类fragmentHasDoneTasks
+                //类fragmentHasDoneTasks中显示页面detail_content_hasdonetasks
+                tag_for_show_kinds = 3;
+                FragmentManager fm_hasdonetasks = getSupportFragmentManager();
+                FragmentTransaction MfragmentTransaction3 = fm_hasdonetasks.beginTransaction();
+                fragmentHasDoneTasks fhdt = new fragmentHasDoneTasks();
+                if(fm_hasdonetasks.findFragmentById(R.id.fragmentForshow)==null){
+                    MfragmentTransaction3.add(R.id.fragmentForshow,fhdt);
+                }else {
+                    MfragmentTransaction3.replace(R.id.fragmentForshow,fhdt);
+                }
+                MfragmentTransaction3.commit();
+                break;
+            case 3:
+                //显示fragment，利用类fragmentSettings
+                //类fragmentSettings中显示页面detail_content_settings
+                FragmentManager fm_settings = getSupportFragmentManager();
+                FragmentTransaction MfragmentTransaction4 = fm_settings.beginTransaction();
+                fragmentSettings fsetting = new fragmentSettings();
+                if(fm_settings.findFragmentById(R.id.fragmentForshow)==null){
+                    MfragmentTransaction4.add(R.id.fragmentForshow,fsetting);
+                }else {
+                    MfragmentTransaction4.replace(R.id.fragmentForshow,fsetting);
+                }
+                MfragmentTransaction4.commit();
+                break;
+        }
+    }
+    @Override
+    public void onTabUnselected(int position) {
+    }
+    @Override
+    public void onTabReselected(int position) {
 
     }
 }
